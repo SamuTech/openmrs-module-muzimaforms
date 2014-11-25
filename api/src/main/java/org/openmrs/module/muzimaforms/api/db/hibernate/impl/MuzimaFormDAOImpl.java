@@ -51,10 +51,9 @@ public class MuzimaFormDAOImpl implements MuzimaFormDAO {
         return (List<MuzimaForm>) session().createQuery("from MuzimaForm form where form.form = '" + form + "'").list();
     }
     public List<MuzimaForm> findByName(final String name, final Date syncDate) {
-        Criteria criteria = session().createCriteria(MuzimaForm.class);
-        criteria.add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
+        Criteria criteriaform = session().createCriteria(MuzimaForm.class);
         if (syncDate != null) {
-            criteria.add(Restrictions.or(
+            criteriaform.add(Restrictions.or(
                     Restrictions.or(
                             Restrictions.and(
                                     Restrictions.and(Restrictions.isNotNull("dateCreated"), Restrictions.ge("dateCreated", syncDate)),
@@ -66,6 +65,7 @@ public class MuzimaFormDAOImpl implements MuzimaFormDAO {
                             Restrictions.and(Restrictions.isNotNull("dateVoided"), Restrictions.ge("dateVoided", syncDate)),
                             Restrictions.and(Restrictions.isNotNull("dateCreated"), Restrictions.isNotNull("dateChanged")))));
         }
+        Criteria criteria  = criteriaform.createCriteria("formDefinition").add(Restrictions.ilike("name", name, MatchMode.ANYWHERE));
         return criteria.list();
     }
 
