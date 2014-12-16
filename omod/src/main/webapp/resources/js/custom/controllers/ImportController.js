@@ -30,8 +30,8 @@ function ImportCtrl($scope, FileUploadService, FormService, _, $location, $route
         if (formType == 'html') {
             $scope.validations = { list: []};
         } else {
-            formType.post({
-                url: formType == 'odk' ? 'odk/validate.form' : 'javarosa/validate.form§',
+            FileUploadService.post({
+                url: formType == 'odk' ? 'odk/validate.form' : 'javarosa/validate.form',
                 file: file,
                 params: { isODK: formType == 'odk'
                 }
