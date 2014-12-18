@@ -543,6 +543,11 @@ function Form (formSelector, dataStr, dataStrToEdit){
                     return true;
                 }
             },
+            'fingerprint' : {
+                            validate: function(x){
+                                return true;
+                            }
+                        },
             'geopoint' : {
                 validate: function(x){
                     var coords = x.toString().split(' ');
