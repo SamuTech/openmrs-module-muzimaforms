@@ -239,6 +239,7 @@ public class XFormParser {
         typeMappings.put("geopoint", new Integer(Constants.DATATYPE_GEOPOINT));         //non-standard
         typeMappings.put("barcode", new Integer(Constants.DATATYPE_BARCODE));           //non-standard
         typeMappings.put("binary", new Integer(Constants.DATATYPE_BINARY));             //non-standard
+        typeMappings.put("fingerprint", new Integer(Constants.DATATYPE_FINGERPRINT));             //non-standard
     }
 
     public String elementToString(Element e) {

@@ -94,6 +94,16 @@ $(document).ready(function () {
     });
     /*End- BarCode Functionality*/
 
+    /*Finger print functionality start*/
+
+    var $fingerPrintInput = $('input[type="fingerprint"]');
+    $fingerPrintInput.before("<input type='button' class='fingerprint_img'>");
+    $('.fingerprint_img').click(function () {
+
+        fingerPrintComponent.startFingerPrintIntent($fingerPrintInput.attr('name'));
+    });
+    /*Finger print functionality End*/
+
     /* Multi select Hack - Start */
 
     var checkboxParent = $("form input:checkbox").parent();

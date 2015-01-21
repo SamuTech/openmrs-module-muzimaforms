@@ -1355,6 +1355,7 @@ XSLT Stylesheet that transforms OpenRosa style (X)Forms into valid HTMl5 forms
                 <xsl:value-of select="string('text')"/>
             </xsl:when>
             <xsl:when test="$xml_type = 'barcode'">barcode</xsl:when>
+            <xsl:when test="$xml_type = 'fingerprint'">fingerprint</xsl:when>
             <!-- ********* -->
             <xsl:otherwise>
                 <xsl:value-of select="$error"/>
