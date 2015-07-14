@@ -1,26 +1,24 @@
 package org.openmrs.module.muzimaforms.web.controller;
 
-import org.dom4j.DocumentException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.muzimaforms.MuzimaForm;
 import org.openmrs.module.muzimaforms.api.MuzimaFormService;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPathExpressionException;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Context.class)
@@ -34,24 +32,39 @@ public class MuzimaFormControllerTest {
         service = mock(MuzimaFormService.class);
         html5FormController = new MuzimaFormController();
         mockStatic(Context.class);
-        PowerMockito.when(Context.getService(MuzimaFormService.class)).thenReturn(service);
-        form = new MuzimaForm() {{
-            setId(1);
-        }};
     }
 
     @Test
-    public void save_shouldSaveAForm() throws IOException, TransformerException, SAXException, ParserConfigurationException, XPathExpressionException, DocumentException {
-        try {
-            html5FormController.save(form);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            verify(service).save(form);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void save_shouldSaveAForm() throws Exception {
+        when(Context.getService(MuzimaFormService.class)).thenReturn(service);
+        form = new MuzimaForm() {{
+            setId(1);
+        }};
+
+        html5FormController.save(form);
+
+        verify(service).save(form);
     }
 
+    @Test
+    public void retire_shouldRetireAFormAndSetRetiredByAndDate() throws Exception {
+        User admin = new User(23);
+        when(Context.getService(MuzimaFormService.class)).thenReturn(service);
+        when(Context.getAuthenticatedUser()).thenReturn(admin);
+        form = new MuzimaForm() {{
+            setId(1);
+        }};
+        when(service.findById(1)).thenReturn(form);
+
+        html5FormController.retire(form.getId());
+
+        verify(service).save(form);
+        assertTrue(form.getRetired());
+        assertEquals(admin, form.getRetiredBy());
+        assertEquals(toSimpleDate(new Date()), toSimpleDate(form.getDateRetired()));
+    }
+
+    private String toSimpleDate(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
 }
