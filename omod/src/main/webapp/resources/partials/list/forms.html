@@ -35,10 +35,27 @@
         <div class="row">
             <div class="col-lg-12 panel">
                 <div class="panel-heading">
-                    <span>
-                        <a title="Delete Form"
-                           ng-click="remove(muzimaform)">
+                    <span class="retire-form">
+                        <a title="Retire"
+                           ng-click="toggleRetireForm(muzimaform)"
+                           ng-show="!muzimaform.retired">
                             <i class="icon-remove"></i>
+                        </a>
+                        <input type="text"
+                               class="retire-reason"
+                               placeholder="Retire reason"
+                               ng-model="muzimaform.retireReason"
+                               ng-show="muzimaform.retired">
+                        </input>
+                        <a class="btn btn-danger"
+                           ng-click="remove(muzimaform)"
+                           ng-show="muzimaform.retired">
+                            Retire
+                        </a>
+                        <a class="btn"
+                           ng-click="toggleRetireForm(muzimaform)"
+                           ng-show="muzimaform.retired">
+                            Cancel
                         </a>
                     </span>
                     <span>

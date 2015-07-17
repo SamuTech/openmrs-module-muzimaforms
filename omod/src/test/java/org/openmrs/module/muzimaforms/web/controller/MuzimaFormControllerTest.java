@@ -49,19 +49,19 @@ public class MuzimaFormControllerTest {
     @Test
     public void retire_shouldRetireAFormAndSetRetiredByAndDate() throws Exception {
         User admin = new User(23);
+        form = new MuzimaForm();
+        form.setId(1);
         when(Context.getService(MuzimaFormService.class)).thenReturn(service);
         when(Context.getAuthenticatedUser()).thenReturn(admin);
-        form = new MuzimaForm() {{
-            setId(1);
-        }};
         when(service.findById(1)).thenReturn(form);
 
-        html5FormController.retire(form.getId());
+        html5FormController.retire(form.getId(), "The form is 60 years old!");
 
-        verify(service).save(form);
         assertTrue(form.getRetired());
         assertEquals(admin, form.getRetiredBy());
+        assertEquals("The form is 60 years old!", form.getRetireReason());
         assertEquals(toSimpleDate(new Date()), toSimpleDate(form.getDateRetired()));
+        verify(service).save(form);
     }
 
     private String toSimpleDate(Date date) {

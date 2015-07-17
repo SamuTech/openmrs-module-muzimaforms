@@ -1,5 +1,6 @@
 package org.openmrs.module.muzimaforms.web.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.muzimaforms.MuzimaForm;
 import org.openmrs.module.muzimaforms.api.MuzimaFormService;
@@ -8,9 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 
 @Controller
@@ -27,10 +31,13 @@ public class MuzimaFormController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "retire/{formId}.form")
     @ResponseBody
-    public void retire(final @PathVariable Integer formId) throws Exception {
+    public void retire(final @PathVariable Integer formId, final @RequestParam String retireReason) throws Exception {
         MuzimaFormService service = Context.getService(MuzimaFormService.class);
         MuzimaForm form = service.findById(formId);
         form.setRetired(true);
+        if (isNotBlank(retireReason)) {
+            form.setRetireReason(retireReason);
+        }
         form.setRetiredBy(Context.getAuthenticatedUser());
         form.setDateRetired(new Date());
         service.save(form);

@@ -29,8 +29,8 @@ muzimaformsModule.factory('FormService', function ($http) {
     var getForms = function() {
         return $http.get('../../ws/rest/v1/form?v=custom:(name,uuid,version,description)');
     };
-    var retire = function (form) {
-        return $http.delete('retire/' + form.id +'.form');
+    var retire = function (form, retireReason) {
+        return $http.delete('retire/' + form.id +'.form' +'?retireReason=' + retireReason);
     };
 
 
