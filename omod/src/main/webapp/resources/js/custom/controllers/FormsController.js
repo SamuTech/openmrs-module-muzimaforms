@@ -33,9 +33,15 @@ function FormsCtrl($location, $scope, $window, FormService, TagService, _) {
 
             return {
                 form: form,
-                newTag: ""
+                newTag: "",
+                retired: false,
+                retireReason: ''
             };
         });
+    };
+
+    $scope.toggleRetireForm = function(form){
+        form.retired = !form.retired;
     };
 
     $scope.hasForms = function () {
@@ -86,8 +92,7 @@ function FormsCtrl($location, $scope, $window, FormService, TagService, _) {
 
     $scope.remove = function (muzimaform) {
         var form = muzimaform.form;
-        form.retired = true;
-        FormService.save(form)
+        FormService.retire(muzimaform.form, muzimaform.retireReason || '')
             .then(function () {
                 for (var i = $scope.muzimaforms.length - 1; i >= 0; i--) {
                     var muzimaform = $scope.muzimaforms[i].form;

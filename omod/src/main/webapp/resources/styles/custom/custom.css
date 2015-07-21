@@ -110,3 +110,23 @@
 #footer {
     display: none !important;
 }
+
+.retire-form{
+    float: right;
+    font-size: 14px;
+    margin-top: 4px;
+}
+.retire-form .icon-remove{
+    font-size: 16px;
+}
+.retire-form .retire-reason{
+    padding: 0 5px 0 5px;
+    border-radius: 4px;
+    height: 25px;
+    margin-top: -4px;
+}
+.retire-form .btn{
+    height: 25px;
+    padding: 2px 10px;
+    margin-top: -4px;
+}
