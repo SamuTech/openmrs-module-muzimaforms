@@ -25,17 +25,25 @@ muzimaformsModule.factory('FormService', function ($http) {
     };
     var all = function () {
         return $http.get('../../ws/rest/v1/muzimaforms/form', {cache: false});
+        //http://localhost:8081/openmrs-standalone/ws/rest/v1/muzimaforms/form
     };
 
     var getForms = function() {
         return $http.get('../../ws/rest/v1/form?v=custom:(name,uuid,version,description)');
     };
 
+    var getDiscriminatorTypes = function() {
+            return $http.get('../../module/muzima/discriminator.json', {cache: false});
+            //return $http.get(http://localhost:8081/openmrs-standalone/module/muzima/error.json);
+    };
+
+
     return {
         all: all,
         get: get,
         save: save,
-        getForms: getForms
+        getForms: getForms,
+        getDiscriminatorTypes: getDiscriminatorTypes
     }
 });
 
