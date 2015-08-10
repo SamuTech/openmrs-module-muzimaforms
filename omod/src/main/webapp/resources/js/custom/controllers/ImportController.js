@@ -22,7 +22,6 @@ function ImportCtrl($scope, FileUploadService, FormService, _, $location, $route
 
     FormService.getDiscriminatorTypes().then(function (results) {
             $scope.discriminatorTypes = results.data;
-            alert("Results = " + $scope.discriminatorTypes);
         });
 
     $scope.loadData = function(){
