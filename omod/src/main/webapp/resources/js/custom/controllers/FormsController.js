@@ -10,7 +10,6 @@ function FormsCtrl($location, $scope, $window, FormService, TagService, _) {
 
         getTags().then(setTags);
         getForms().then(setForms);
-
     };
 
     var getTags = function () {

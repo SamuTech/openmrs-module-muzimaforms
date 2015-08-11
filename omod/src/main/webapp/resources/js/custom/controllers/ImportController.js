@@ -11,6 +11,7 @@ function ImportCtrl($scope, FileUploadService, FormService, _, $location, $route
             .appendTo('#error-alert')
             .text(content);
     };
+
     FormService.getForms().then(function (results) {
         $scope.forms = results.data.results;
         if ($scope.forms.length > 0) {
@@ -19,11 +20,15 @@ function ImportCtrl($scope, FileUploadService, FormService, _, $location, $route
         }
     });
 
+    FormService.getDiscriminatorTypes().then(function (results) {
+            $scope.discriminatorTypes = results.data;
+        });
+
     $scope.loadData = function(){
         $scope.name = $scope.form.name;
         $scope.version = $scope.form.version;
         $scope.description = $scope.form.description;
-
+        $scope.discriminator = $scope.discriminatorTypes[0];
     };
 
     $scope.validate = function (file, formType) {
