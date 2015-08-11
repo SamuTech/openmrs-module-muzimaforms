@@ -34,12 +34,20 @@ muzimaformsModule.factory('FormService', function ($http) {
     };
 
 
+    var getDiscriminatorTypes = function() {
+            return $http.get('../../module/muzima/discriminator.json', {cache: false});
+            //return $http.get(http://localhost:8081/openmrs-standalone/module/muzima/error.json);
+    };
+
+
     return {
         all: all,
         get: get,
         save: save,
         getForms: getForms,
         retire: retire
+        getForms: getForms,
+        getDiscriminatorTypes: getDiscriminatorTypes
     }
 });
 
