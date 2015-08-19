@@ -45,8 +45,7 @@ muzimaformsModule.factory('FormService', function ($http) {
         get: get,
         save: save,
         getForms: getForms,
-        retire: retire
-        getForms: getForms,
+        retire: retire,
         getDiscriminatorTypes: getDiscriminatorTypes
     }
 });
