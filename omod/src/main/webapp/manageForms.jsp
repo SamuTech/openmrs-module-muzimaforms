@@ -1,6 +1,8 @@
 <%@ include file="/WEB-INF/template/include.jsp" %>
 <%@ include file="/WEB-INF/template/header.jsp" %>
 
+<openmrs:require privilege="Manage Forms" otherwise="/login.htm" redirect="/module/muzimaforms/manageforms.form"/>
+
 <openmrs:htmlInclude file="/moduleResources/muzimaforms/styles/font-awesome/css/font-awesome.min.css"/>
 <openmrs:htmlInclude file="/moduleResources/muzimaforms/styles/animate/animate.css"/>
 <openmrs:htmlInclude file="/moduleResources/muzimaforms/styles/bootstrap/css/bootstrap.min.css"/>
