@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,9 +19,12 @@ public class TagController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public List<MuzimaFormTag> tags() {
-
-        MuzimaTagService service = Context.getService(MuzimaTagService.class);
-        return service.getAll();
+        List<MuzimaFormTag> tags = new ArrayList<MuzimaFormTag>();
+        if (Context.isAuthenticated()) {
+            MuzimaTagService service = Context.getService(MuzimaTagService.class);
+            tags = service.getAll();
+        }
+        return tags;
     }
 
 }

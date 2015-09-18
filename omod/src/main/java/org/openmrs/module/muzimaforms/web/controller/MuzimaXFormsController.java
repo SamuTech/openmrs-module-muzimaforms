@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,8 +20,12 @@ public class MuzimaXFormsController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public List<MuzimaXForm> xForms() {
-        MuzimaFormService service = Context.getService(MuzimaFormService.class);
-        return service.getXForms();
+        List<MuzimaXForm> xForms = new ArrayList<MuzimaXForm>();
+        if (Context.isAuthenticated()) {
+            MuzimaFormService service = Context.getService(MuzimaFormService.class);
+            xForms = service.getXForms();
+        }
+        return xForms;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -28,7 +33,9 @@ public class MuzimaXFormsController {
     public void importXForm(final @RequestParam Integer id,
                             final @RequestParam String form,
                             final @RequestParam String discriminator) throws Exception {
-        MuzimaFormService service = Context.getService(MuzimaFormService.class);
-        service.importExisting(id, form, discriminator);
+        if (Context.isAuthenticated()) {
+            MuzimaFormService service = Context.getService(MuzimaFormService.class);
+            service.importExisting(id, form, discriminator);
+        }
     }
 }

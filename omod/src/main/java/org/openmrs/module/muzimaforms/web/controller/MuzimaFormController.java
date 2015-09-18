@@ -25,22 +25,26 @@ public class MuzimaFormController {
     @RequestMapping(method = RequestMethod.POST, value = "form.form")
     @ResponseBody
     public void save(final @RequestBody MuzimaForm form) throws Exception {
-        MuzimaFormService service = Context.getService(MuzimaFormService.class);
-        service.save(form);
+        if (Context.isAuthenticated()) {
+            MuzimaFormService service = Context.getService(MuzimaFormService.class);
+            service.save(form);
+        }
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "retire/{formId}.form")
     @ResponseBody
     public void retire(final @PathVariable Integer formId, final @RequestParam String retireReason) throws Exception {
-        MuzimaFormService service = Context.getService(MuzimaFormService.class);
-        MuzimaForm form = service.findById(formId);
-        form.setRetired(true);
-        if (isNotBlank(retireReason)) {
-            form.setRetireReason(retireReason);
+        if (Context.isAuthenticated()) {
+            MuzimaFormService service = Context.getService(MuzimaFormService.class);
+            MuzimaForm form = service.findById(formId);
+            form.setRetired(true);
+            if (isNotBlank(retireReason)) {
+                form.setRetireReason(retireReason);
+            }
+            form.setRetiredBy(Context.getAuthenticatedUser());
+            form.setDateRetired(new Date());
+            service.save(form);
         }
-        form.setRetiredBy(Context.getAuthenticatedUser());
-        form.setDateRetired(new Date());
-        service.save(form);
     }
 
 }
