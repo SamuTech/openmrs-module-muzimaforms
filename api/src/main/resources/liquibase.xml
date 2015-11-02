@@ -257,7 +257,12 @@
         </update>
     </changeSet>
 
-    <changeSet id="muzimaform-2014-06-29-22:55" author="nribeka">
+    <changeSet id="muzimaform-2014-06-29-22:55" author="nribeka" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="muzimaforms_form" columnName="discriminator"/>
+            </not>
+        </preConditions>
         <comment>
             Adding the discriminator column
         </comment>
@@ -266,7 +271,12 @@
         </addColumn>
     </changeSet>
 
-    <changeSet id="muzimaform-2014-07-14-21:36" author="nribeka">
+    <changeSet id="muzimaform-2014-07-14-21:36" author="nribeka" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="muzimaforms_form" columnName="form"/>
+            </not>
+        </preConditions>
         <comment>
             Adding the form relation to resolve the encounter type.
         </comment>
@@ -292,7 +302,14 @@
                                  referencedTableName="form"/>
     </changeSet>
 
-    <changeSet author="liquibase-docs" id="dropColumn-example">
+    <changeSet author="shwetha" id="muzimaform-2014-10-17" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <columnExists tableName="muzimaforms_form" columnName="name"/>
+                <columnExists tableName="muzimaforms_form" columnName="description"/>
+                <columnExists tableName="muzimaforms_form" columnName="version"/>
+            </and>
+        </preConditions>
         <dropColumn columnName="name"
                     tableName="muzimaforms_form"/>
         <dropColumn columnName="description"
