@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>muzimaforms</artifactId>
-		<version>1.0.1-SNAPSHOT</version>
+		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>muzimaforms-javarosa-validator</artifactId>
@@ -22,7 +22,7 @@
             <artifactId>jakarta-regexp</artifactId>
         </dependency>
     </dependencies>
-	
+
 	<build>
 		<resources>
 			<resource>
