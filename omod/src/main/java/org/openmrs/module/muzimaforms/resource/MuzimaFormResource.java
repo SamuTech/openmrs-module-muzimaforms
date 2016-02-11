@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 @Resource(name = RestConstants.VERSION_1 + "/" + MuzimaConstants.MODULE_ID + "/form",
-        supportedClass = MuzimaForm.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*"})
+        supportedClass = MuzimaForm.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*","1.10.*","1.11.*"})
 @Handler(supports = MuzimaForm.class)
 public class MuzimaFormResource extends MetadataDelegatingCrudResource<MuzimaForm> {
     private static final Log log = LogFactory.getLog(MuzimaFormResource.class);
