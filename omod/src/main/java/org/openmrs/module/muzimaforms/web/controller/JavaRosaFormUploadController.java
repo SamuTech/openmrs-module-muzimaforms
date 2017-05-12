@@ -15,11 +15,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+*Adds execution checks before executing controller methods
+**/
+
 @Controller
 @RequestMapping(value = "module/muzimaforms")
 
 public class JavaRosaFormUploadController {
-
+    /**
+    *
+    *Recieves the servlet request form the open mrs REST client and returns ValidationMessage depending on the validity of the HttpServlet 
+    *request object.
+    *
+    *@param MultipartHttpServletRequest 
+    *@return ValidationMessages
+    *@throws Exception
+    */
 
     @ResponseBody
     @RequestMapping(value = "/javarosa/validate.form", method = RequestMethod.POST)
@@ -28,6 +40,13 @@ public class JavaRosaFormUploadController {
         return service.validateJavaRosa(extractFile(request));
     }
 
+    /**
+    * HttpClient requesty validator before POST  on the REST api is executed
+    *
+    *@param MultipartHttpServletRequest object - httpRequest object from REST client.
+    *@return ValidationMessages - object containing validation messages after processing HttpRequest object.
+    */
+    
     @ResponseBody
     @RequestMapping(value = "/odk/validate.form", method = RequestMethod.POST)
     public ValidationMessages validateODK(final MultipartHttpServletRequest request) throws Exception {
@@ -35,6 +54,15 @@ public class JavaRosaFormUploadController {
         return service.validateODK(extractFile(request));
     }
 
+    /**
+    * Cheks if the MultipartHttpServletRequest object was validation was positive. Then  
+    *
+    * @param MultipartHttpServletRequest - request object represent the httpRequest mader by the REST client.
+    * @param String 
+    * @param String
+    * 
+    */
+    
     @ResponseBody
     @RequestMapping(value = "/javarosa/upload.form", method = RequestMethod.POST)
     public void uploadJavaRosa(final MultipartHttpServletRequest request,
